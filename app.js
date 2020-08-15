@@ -33,18 +33,18 @@ app.post("/",function(req, res){
     const url = "https://us17.api.mailchimp.com/3.0/lists/9cda31e64a";
     const options = {
         method: "POST",
-        auth: "Fuad:2b15c638486b79b3b0514446c4b8cff7-us17"
+        auth: "Fuad:s2b15c638486b79b3b0514446c4b8cff7-us17"
     };
 
     const request = https.request(url, options, function(response){
 
         if(response.statusCode === 200)
         {
-            res.send("You are successfully subscribed!");
+            res.sendFile(__dirname + "/success.html");
         }
         else
         {
-            res.send("There was an error, try again later!");
+            res.sendFile(__dirname + "/failure.html");
         }
 
         response.on("data", function(data){
@@ -60,6 +60,10 @@ app.post("/",function(req, res){
 
 
 });
+
+app.post("/failure", function(req, res){
+    res.redirect("/");
+})
 
 app.listen(3000, function(){
     console.log("server is running!");
